@@ -814,6 +814,7 @@
       }
 
       // Enhanced wish popup - only show image with lightbox
+// Enhanced wish popup - random between image and text
 function showWish(index) {
   const popup = document.getElementById("wishPopup");
   const overlay = document.getElementById("popupOverlay");
@@ -822,9 +823,17 @@ function showWish(index) {
   // Show overlay first
   overlay.classList.add("show");
 
-  // Create clickable image
-  const imageSrc = wishImages[index % wishImages.length];
-  wishText.innerHTML = `<img src="${imageSrc}" alt="Trung Thu" class="wish-image" onclick="openLightbox('${imageSrc}')" style="cursor: pointer;" />`;
+  // Random choice: 50% image, 50% text wish
+  const showImage = Math.random() < 0.5;
+  
+  if (showImage) {
+    // Show clickable image
+    const imageSrc = wishImages[index % wishImages.length];
+    wishText.innerHTML = `<img src="${imageSrc}" alt="Trung Thu" class="wish-image" onclick="openLightbox('${imageSrc}')" style="cursor: pointer;" />`;
+  } else {
+    // Show text wish only
+    wishText.innerHTML = `<div style="font-size: 26px; line-height: 1.4; padding: 20px 0;">${wishes[index % wishes.length]}</div>`;
+  }
 
   // Show popup with animation
   setTimeout(() => {

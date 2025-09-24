@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tết Trung Thu</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(
+          ellipse at center,
+          #1a1a40 0%,
+          #0f0f2a 50%,
+          #000015 100%
+        );
+        overflow: hidden;
+        font-family: "Quicksand", sans-serif;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Stars background */
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: twinkle 4s ease-in-out infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Moon - exactly like in the image */
+      .moon {
+        position: absolute;
+        top: 8%;
+        right: 6%;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(
+          circle at 25% 25%,
+          #ffffff 0%,
+          #f8f8f8 30%,
+          #e8e8e8 60%,
+          #d0d0d0 100%
+        );
+        border-radius: 50%;
+        box-shadow: 0 0 60px rgba(255, 255, 255, 0.8),
+          0 0 120px rgba(255, 255, 255, 0.4), 0 0 200px rgba(255, 255, 255, 0.2);
+        animation: moonGlow 6s ease-in-out infinite;
+      }
+
+      .moon::before {
+        content: "";
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        width: 15px;
+        height: 15px;
+        background: rgba(200, 200, 200, 0.5);
+        border-radius: 50%;
+      }
+
+      .moon::after {
+        content: "";
+        position: absolute;
+        top: 60%;
+        left: 20%;
+        width: 8px;
+        height: 8px;
+        background: rgba(180, 180, 180, 0.4);
+        border-radius: 50%;
+      }
+
+      @keyframes moonGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 60px rgba(255, 255, 255, 0.8),
+            0 0 120px rgba(255, 255, 255, 0.4),
+            0 0 200px rgba(255, 255, 255, 0.2);
+        }
+        50% {
+          box-shadow: 0 0 80px rgba(255, 255, 255, 1),
+            0 0 160px rgba(255, 255, 255, 0.6),
+            0 0 240px rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      /* Sky lanterns - realistic like in image */
+      .lantern {
+        position: absolute;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        animation: floatRealistic 8s ease-in-out infinite;
+        filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.6));
+      }
+
+      .lantern:hover {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.9)) brightness(1.2);
+      }
+
+      /* Small lanterns (far away) */
+      .lantern.small .lantern-body {
+        width: 8px;
+        height: 12px;
+        background: radial-gradient(
+          ellipse at center top,
+          #ff8c42 0%,
+          #ff6b1a 50%,
+          #d4541a 100%
+        );
+        border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+        box-shadow: 0 0 6px rgba(255, 140, 66, 0.8),
+          inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .lantern.small .lantern-top {
+        width: 4px;
+        height: 3px;
+        background: #5d2d0a;
+        border-radius: 2px;
+        position: absolute;
+        top: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Medium lanterns */
+      .lantern.medium .lantern-body {
+        width: 16px;
+        height: 24px;
+        background: radial-gradient(
+          ellipse at center top,
+          #ff8c42 0%,
+          #ff6b1a 40%,
+          #d4541a 80%,
+          #b8401a 100%
+        );
+        border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+        box-shadow: 0 0 12px rgba(255, 140, 66, 0.9),
+          inset 0 -4px 6px rgba(0, 0, 0, 0.4),
+          inset 2px 0 4px rgba(255, 180, 100, 0.3);
+      }
+
+      .lantern.medium .lantern-top {
+        width: 8px;
+        height: 6px;
+        background: linear-gradient(to bottom, #6d3010, #5d2d0a);
+        border-radius: 4px 4px 2px 2px;
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .lantern.medium .lantern-bottom {
+        width: 6px;
+        height: 4px;
+        background: linear-gradient(to bottom, #ff6b1a, #d4541a);
+        border-radius: 0 0 50% 50%;
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Large lanterns (close) */
+      .lantern.large .lantern-body {
+        width: 32px;
+        height: 48px;
+        background: radial-gradient(
+          ellipse at center top,
+          #ffab42 0%,
+          #ff8c42 30%,
+          #ff6b1a 60%,
+          #d4541a 90%,
+          #b8401a 100%
+        );
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: relative;
+        box-shadow: 0 0 20px rgba(255, 140, 66, 1),
+          0 0 35px rgba(255, 107, 26, 0.6), inset 0 -8px 12px rgba(0, 0, 0, 0.4),
+          inset 4px 0 8px rgba(255, 200, 120, 0.4),
+          inset -2px 0 6px rgba(200, 80, 20, 0.3);
+      }
+
+      .lantern.large .lantern-top {
+        width: 16px;
+        height: 12px;
+        background: linear-gradient(to bottom, #8b4513, #6d3010, #5d2d0a);
+        border-radius: 8px 8px 4px 4px;
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .lantern.large .lantern-string {
+        width: 1px;
+        height: 15px;
+        background: linear-gradient(to bottom, #654321, rgba(101, 67, 33, 0.8));
+        position: absolute;
+        top: -23px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .lantern.large .lantern-bottom {
+        width: 12px;
+        height: 8px;
+        background: linear-gradient(to bottom, #ff6b1a, #d4541a, #b8401a);
+        border-radius: 0 0 60% 60%;
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .lantern.large .lantern-glow {
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 60%;
+        height: 30%;
+        background: radial-gradient(
+          ellipse,
+          rgba(255, 255, 150, 0.4) 0%,
+          rgba(255, 200, 100, 0.2) 50%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+
+      @keyframes floatRealistic {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) rotate(-1deg);
+        }
+        25% {
+          transform: translateY(-15px) translateX(5px) rotate(0.5deg);
+        }
+        50% {
+          transform: translateY(-8px) translateX(-3px) rotate(-0.5deg);
+        }
+        75% {
+          transform: translateY(-20px) translateX(8px) rotate(1deg);
+        }
+      }
+
+      /* Background overlay when popup is shown */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .popup-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Wish popup */
+      .wish-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 248, 220, 0.98) 0%,
+          rgba(255, 245, 200, 0.99) 100%
+        );
+        padding: 40px 50px;
+        border-radius: 25px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5),
+          0 0 0 2px rgba(255, 140, 66, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        text-align: center;
+        font-family: "Dancing Script", cursive;
+        font-size: 28px;
+        font-weight: 700;
+        color: #d4541a;
+        z-index: 1000;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6);
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        max-width: 500px;
+        backdrop-filter: blur(20px);
+        border: 3px solid rgba(255, 140, 66, 0.5);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .wish-popup.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: rgba(212, 84, 26, 0.1);
+        border: 2px solid rgba(212, 84, 26, 0.3);
+        font-size: 24px;
+        color: #d4541a;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .close-btn:hover {
+        background: rgba(212, 84, 26, 0.2);
+        border-color: rgba(212, 84, 26, 0.5);
+        transform: scale(1.1);
+      }
+
+      .wish-image {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border: 3px solid rgba(255, 140, 66, 0.4);
+        margin: 0;
+      }
+
+      /* Title */
+      .title {
+        position: absolute;
+        top: 4%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Dancing Script", cursive;
+        font-size: 52px;
+        font-weight: 700;
+        color: #ffeb3b;
+        text-shadow: 0 0 15px rgba(255, 235, 59, 1),
+          0 0 30px rgba(255, 235, 59, 0.8), 0 0 45px rgba(255, 235, 59, 0.6),
+          2px 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        animation: titleGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes titleGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 15px rgba(255, 235, 59, 1),
+            0 0 30px rgba(255, 235, 59, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+          text-shadow: 0 0 25px rgba(255, 235, 59, 1),
+            0 0 50px rgba(255, 235, 59, 1), 0 0 75px rgba(255, 235, 59, 0.8),
+            2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* Instructions */
+      .instructions {
+        position: absolute;
+        bottom: 4%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Quicksand", sans-serif;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        z-index: 100;
+        animation: pulse 3s ease-in-out infinite;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.2);
+        padding: 12px 25px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.7;
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1.05);
+        }
+      }
+
+      /* Music Control */
+      .music-control {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 140, 66, 0.9) 0%,
+          rgba(212, 84, 26, 0.9) 100%
+        );
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        z-index: 200;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+          0 0 20px rgba(255, 140, 66, 0.4);
+        backdrop-filter: blur(10px);
+
+        display: none;
+      }
+
+      .music-control:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4),
+          0 0 30px rgba(255, 140, 66, 0.6);
+      }
+
+      .music-control.playing {
+        animation: musicPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes musicPulse {
+        0%,
+        100% {
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 140, 66, 0.4);
+        }
+        50% {
+          box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4),
+            0 0 40px rgba(255, 140, 66, 0.8);
+        }
+      }
+
+
+      /* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.lightbox-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 140, 66, 0.7);
+  transform: scale(1.1);
+}
+
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .wish-popup {
+    max-width: 98%;
+    width: 95vw;
+    padding: 15px;
+    margin: 0 1vw;
+  }
+  
+  .wish-image {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 300px;
+    max-height: 70vh;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .close-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    top: 5px;
+    right: 10px;
+  }
+  
+  .lightbox-image {
+    max-width: 98%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+  }
+  
+  .lightbox-close {
+    top: 10px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+  }
+}
+
+/* Extra small mobile - chiếm gần hết màn hình */
+@media (max-width: 480px) {
+  .wish-popup {
+    max-width: 99%;
+    width: 98vw;
+    padding: 12px;
+    margin: 0 1vw;
+  }
+  
+  .wish-image {
+    width: 100%;
+    min-height: 280px;
+    max-height: 75vh;
+    border-radius: 10px;
+  }
+  
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    top: 3px;
+    right: 8px;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <div class="moon"></div>
+
+    <!-- <h1 class="title">🏮 Lễ Hội Trung Thu 🏮</h1>
+
+    <div class="instructions">
+      ✨ Nhấp vào lồng đèn để nhận lời chúc may mắn ✨
+    </div> -->
+
+    <!-- Background overlay -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+
+    <!-- Wish popup -->
+    <div class="wish-popup" id="wishPopup">
+      <button class="close-btn" onclick="closeWish()">&times;</button>
+      <div id="wishText"></div>
+    </div>
+
+
+    <!-- Lightbox -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img src="" alt="Chi tiết ảnh" class="lightbox-image" id="lightboxImage">
+</div>
+
+    <!-- Music control -->
+    <div class="music-control" id="musicControl" onclick="toggleMusic()">
+      🎵
+    </div>
+
+    <!-- Hidden audio element -->
+    <audio id="backgroundMusic" loop preload="auto">
+      <source src="./sound/NhacTrungThuPiano.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      // Enhanced wishes array
+      const wishes = [
+        "🌕 Chúc bạn Trung Thu vui vẻ, đoàn viên và hạnh phúc bên gia đình! 🥮",
+        "✨ Nguyện cầu ánh trăng tròn mang đến cho bạn may mắn và thành công! 🌙",
+        "🏮 Ước mong mọi người đều sum vầy và hạnh phúc trong đêm Trung Thu! ✨",
+        "🥮 Mong rằng bánh trung thu ngọt ngào như tình cảm gia đình bạn! 💕",
+        "🌙 Chúc bạn luôn bình an và hạnh phúc như ánh trăng rằm! 🥮",
+        "⭐ Nguyện ước của bạn sẽ thành hiện thực dưới ánh trăng rằm! 🌟",
+        "🏮 Chúc con đường phía trước của bạn luôn sáng rực như ánh đèn lồng! ✨",
+        "💖 Mong tình yêu và tình bạn luôn bền chặt như ánh trăng rằm! 🌕",
+        "🌕 Chúc bạn có một đêm trăng rằm đáng nhớ và ý nghĩa! 💫",
+        "🥮 Ngọt ngào như bánh dẻo, tròn đầy như trăng rằm - chúc bạn hạnh phúc! 😊",
+        "🏮 Chúc bạn sức khỏe dồi dào, nụ cười luôn rạng rỡ! ✨",
+        "🎈 Ước mơ sẽ bay cao như những chiếc đèn lồng trong đêm Trung Thu! 🌟",
+      ];
+
+      // Array of images corresponding to wishes
+      const wishImages = [
+        "./images/anh1.jpg",
+        "./images/anh2.jpg",
+        "./images/anh3.jpg",
+        "./images/anh4.jpg",
+        "./images/anh5.jpg",
+        "./images/anh1.jpg",
+        "./images/anh2.jpg",
+        "./images/anh3.jpg",
+        "./images/anh4.jpg",
+        "./images/anh5.jpg",
+        "./images/anh1.jpg",
+        "./images/anh2.jpg",
+      ];
+      // Music variables
+      let isPlaying = false;
+      let audioElement = null;
+
+      // Initialize audio element
+      function initAudio() {
+        if (!audioElement) {
+          audioElement = document.getElementById("backgroundMusic");
+          audioElement.volume = 0.4;
+
+          audioElement.addEventListener("loadeddata", () => {
+            console.log("Nhạc Trung Thu đã sẵn sàng!");
+          });
+
+          audioElement.addEventListener("error", (e) => {
+            console.log("Không thể tải file nhạc:", e);
+          });
+        }
+      }
+
+      // Toggle music function
+      function toggleMusic() {
+        const musicControl = document.getElementById("musicControl");
+        console.log("Toggle music clicked, isPlaying:", isPlaying);
+
+        if (!isPlaying) {
+          if (audioElement) {
+            console.log("Attempting to play audio...");
+            audioElement
+              .play()
+              .then(() => {
+                console.log("Audio playing successfully");
+                musicControl.textContent = "🎶";
+                musicControl.classList.add("playing");
+                isPlaying = true;
+              })
+              .catch((error) => {
+                console.log("Không thể phát nhạc:", error);
+                alert("Lỗi phát nhạc: " + error.message);
+              });
+          } else {
+            console.log("Audio element not found");
+          }
+        } else {
+          if (audioElement) {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+          }
+          musicControl.textContent = "🎵";
+          musicControl.classList.remove("playing");
+          isPlaying = false;
+        }
+      }
+
+      // Create realistic stars
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 150; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+
+          const size = Math.random() * 2.5 + 0.5;
+          star.style.width = size + "px";
+          star.style.height = size + "px";
+          star.style.animationDelay = Math.random() * 4 + "s";
+          star.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Create sky lanterns exactly like in the image
+      function createLanterns() {
+        const lanternSizes = ["small", "medium", "large"];
+        const lanternCounts = { small: 40, medium: 25, large: 15 };
+
+        Object.keys(lanternCounts).forEach((size) => {
+          for (let i = 0; i < lanternCounts[size]; i++) {
+            const lantern = document.createElement("div");
+            lantern.className = `lantern ${size}`;
+
+            // Distribute lanterns more naturally like in the image
+            let x, y;
+            if (size === "small") {
+              // Small lanterns spread everywhere, more in upper areas
+              x = Math.random() * 100;
+              y = Math.random() * 80 + 10; // 10% to 90% height
+            } else if (size === "medium") {
+              // Medium lanterns more in middle areas
+              x = Math.random() * 90 + 5;
+              y = Math.random() * 70 + 15; // 15% to 85% height
+            } else {
+              // Large lanterns in foreground, lower areas
+              x = Math.random() * 80 + 10;
+              y = Math.random() * 60 + 25; // 25% to 85% height
+            }
+
+            lantern.style.left = x + "%";
+            lantern.style.top = y + "%";
+
+            // Random animation timing
+            lantern.style.animationDelay = Math.random() * 8 + "s";
+            lantern.style.animationDuration = Math.random() * 4 + 6 + "s";
+
+            // Create lantern structure based on size
+            if (size === "small") {
+              lantern.innerHTML = `
+                            <div class="lantern-top"></div>
+                            <div class="lantern-body"></div>
+                        `;
+            } else if (size === "medium") {
+              lantern.innerHTML = `
+                            <div class="lantern-top"></div>
+                            <div class="lantern-body"></div>
+                            <div class="lantern-bottom"></div>
+                        `;
+            } else {
+              lantern.innerHTML = `
+                            <div class="lantern-string"></div>
+                            <div class="lantern-top"></div>
+                            <div class="lantern-body">
+                                <div class="lantern-glow"></div>
+                            </div>
+                            <div class="lantern-bottom"></div>
+                        `;
+            }
+
+            // Add click event
+            lantern.addEventListener("click", (e) => {
+              e.stopPropagation();
+              showWish(Math.floor(Math.random() * wishes.length));
+            });
+
+            document.body.appendChild(lantern);
+          }
+        });
+      }
+
+      // Enhanced wish popup - only show image with lightbox
+function showWish(index) {
+  const popup = document.getElementById("wishPopup");
+  const overlay = document.getElementById("popupOverlay");
+  const wishText = document.getElementById("wishText");
+
+  // Show overlay first
+  overlay.classList.add("show");
+
+  // Create clickable image
+  const imageSrc = wishImages[index % wishImages.length];
+  wishText.innerHTML = `<img src="${imageSrc}" alt="Trung Thu" class="wish-image" onclick="openLightbox('${imageSrc}')" style="cursor: pointer;" />`;
+
+  // Show popup with animation
+  setTimeout(() => {
+    popup.classList.add("show");
+  }, 100);
+}
+
+      // Close wish popup
+      function closeWish() {
+        const popup = document.getElementById("wishPopup");
+        const overlay = document.getElementById("popupOverlay");
+
+        popup.classList.remove("show");
+        overlay.classList.remove("show");
+        popup.style.animation = "";
+      }
+
+
+      // Open lightbox
+function openLightbox(imageSrc) {
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImage = document.getElementById('lightboxImage');
+  
+  lightboxImage.src = imageSrc;
+  lightboxOverlay.classList.add('show');
+}
+
+// Close lightbox
+function closeLightbox() {
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  lightboxOverlay.classList.remove('show');
+}
+
+      // Close popup when clicking on overlay
+      document.addEventListener("click", (e) => {
+        const popup = document.getElementById("wishPopup");
+        const overlay = document.getElementById("popupOverlay");
+
+        if (e.target === overlay) {
+          closeWish();
+        }
+      });
+
+      // Close popup with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeWish();
+        }
+      });
+
+      // Initialize everything
+      // Initialize everything
+      window.addEventListener("load", () => {
+        createStars();
+        createLanterns();
+        initAudio(); // Initialize audio first
+
+        // Auto-start music after 3 seconds
+        setTimeout(() => {
+          toggleMusic();
+        }, 1000);
+      });
+
+      // Responsive adjustments
+      window.addEventListener("resize", () => {
+        document
+          .querySelectorAll(".lantern")
+          .forEach((lantern) => lantern.remove());
+        createLanterns();
+      });
+
+      // Add some interactive elements
+      document.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+
+        // Subtle parallax effect for stars
+        const stars = document.querySelectorAll(".star");
+        stars.forEach((star, index) => {
+          const speed = ((index % 3) + 1) * 0.5;
+          const x = (mouseX - 0.5) * speed;
+          const y = (mouseY - 0.5) * speed;
+          star.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+
+
+      // Close lightbox when clicking on overlay
+document.addEventListener('click', (e) => {
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  if (e.target === lightboxOverlay) {
+    closeLightbox();
+  }
+});
+    </script>
+  </body>
+</html>
